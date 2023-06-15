@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
     private int actualLife = 3;
     private int maxLife = 5;
+    private int score = 0;
 
 
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         bulletAudio = GetComponent<AudioSource>();
         life = actualLife;
+        actualLife = maxLife;
     }
 
     // Update is called once per frame
@@ -62,14 +64,30 @@ public class PlayerController : MonoBehaviour
                 bulletAudio.PlayOneShot(bodyHit, 0.5f);
                 if (raptorScript != null)
                 {
-                    raptorScript.getHit = true;
+                    if (raptorScript.hitable == true)
+                    {
+                        raptorScript.getHit = true;
+                        raptorScript.DropLoot(hit);
+                        UpdateScore();
+                    }
+                    
                 }
+                
             }
 
             if (hit.collider.gameObject.name == "Road" || hit.collider.gameObject.name == "Grass")
             {
                 Vector3 position = new Vector3(transform.position.x, 0, transform.position.z);
                 Instantiate(smokePrefab, hit.point, smokePrefab.transform.rotation);
+            }
+
+            if (hit.collider.gameObject.name == "LifePointBonus(Clone)")
+            {
+                if (life < actualLife)
+                {
+                    life += 1;
+                }
+                Destroy(hit.collider.gameObject);
             }
         }
 
@@ -85,14 +103,24 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 1; i <= 5; i++)
             {
+                string lifePointEmptyObject = "LifePointEmpty" + i;
                 string lifePointObject = "LifePoint" + i;
+                Transform lifePointEmpty = lifebarTransform.Find(lifePointEmptyObject);
                 Transform lifePoint = lifebarTransform.Find(lifePointObject);
+                if (lifePointEmpty != null)
+                {
+                    lifePointEmpty.gameObject.SetActive(i <= actualLife);
+                }
                 if (lifePoint != null)
                 {
                     lifePoint.gameObject.SetActive(i <= life);
-                    Debug.Log($"Life : " + life);
                 }
             }
         }
+    }
+
+    private void UpdateScore()
+    {
+        score += 1;
     }
 }

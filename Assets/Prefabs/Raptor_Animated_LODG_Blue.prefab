@@ -2355,6 +2355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31b28d0f5690ca4f903d4b7a3ef0d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loot:
+  - {fileID: 1622186177067219193, guid: fe28723536d411e4783c9c0f40b78183, type: 3}
   vehicle: {fileID: 6310917609478647034, guid: 7e8a57ab7b090ce488ccc4d9af5a7ea1, type: 3}
   carHit: {fileID: 5862794018174574205}
   getHit: 0

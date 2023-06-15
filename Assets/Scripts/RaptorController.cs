@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class RaptorController : MonoBehaviour
 {
+    public GameObject[] loot;
     public GameObject vehicle;
     public AudioSource carHit;
     public bool getHit = false;
-
-    private bool hitable = true;
+    public bool hitable = true;
     private GameObject player;
     private int speed = 6;
     private Vector3 raptorOrientation;
@@ -126,6 +126,19 @@ public class RaptorController : MonoBehaviour
             else
             {
                 transform.Rotate(0, 90 - (float)angleDegres, 0);
+            }
+        }
+    }
+
+    public void DropLoot(RaycastHit hit)
+    {
+        if (getHit)
+        {
+            int lootRandom = Random.Range(0, 100);
+            if (lootRandom <= 30)
+            {
+                int itemToSpawn = Random.Range(0, loot.Length);
+                Instantiate(loot[itemToSpawn], hit.point, Quaternion.Euler(0f, 0f, 45f));
             }
         }
     }
