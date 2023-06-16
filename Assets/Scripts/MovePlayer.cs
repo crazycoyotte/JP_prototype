@@ -19,16 +19,7 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get the horizontal input for camera rotation
-        float horizontalInput = Input.GetAxis("Horizontal");
 
-        // Get the horizontal input for camera rotation
-        float verticalInput = Input.GetAxis("Vertical");
-
-        // Rotate the camera around the Y-axis based on the input and rotation speed
-        gameObject.transform.Translate(Vector3.right * verticalInput * speed * Time.deltaTime);
-        // Rotate the camera around the Z-axis based on the input and rotation speed
-        gameObject.transform.Translate(Vector3.forward * horizontalInput * speed * Time.deltaTime);
 
 
     }

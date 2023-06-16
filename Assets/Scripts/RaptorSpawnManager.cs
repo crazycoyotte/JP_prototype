@@ -13,18 +13,21 @@ public class RaptorSpawnManager : MonoBehaviour
     private float spawnOnX;
     private float spawnOnZ;
     private float spawnTime;
+    private GameObject gameManager;
+    private GameManager gameManagerScript;
     private Vector3 spawnPos = new Vector3(0, 0, 100);
     private Vector3 spawnRot = new Vector3(0, 0, 0);
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager");
+        gameManagerScript = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (spawnTime >= repeatRate)
+        if (spawnTime >= repeatRate && gameManagerScript.isGameStarted)
         {
             SpawnRaptor();
             spawnTime = 0;
@@ -37,7 +40,6 @@ public class RaptorSpawnManager : MonoBehaviour
 
             //randomize the next spawn
             repeatRate = Random.Range(10, repeatRateMax);
-            Debug.Log(repeatRateMax);
         }
         else
         {
